@@ -5,7 +5,8 @@ const _fs = require('fs');
 const globals = {
   script: process.argv[1],
   channel: process.argv[2],
-  file: process.argv[3]
+  file: process.argv[3],
+  reason: process.argv.slice(4).join(' ')
 }
 
 // Create option object. Contains configuration for _tmi.client()
@@ -33,23 +34,19 @@ function doIt() {
 
     let banList = fileData.split('\n');
     let banQueue = banList;
+    let banTotal = banQueue.length;
 
     if (banQueue.length != 0) {
       let channel = globals.channel.toString();
-      do {
-        /*_twitch.client.ban(channel, banQueue[0].toString(), `PM ${process.env.TWITCH_USERNAME} about why this user was banned. Automated with Twitch Mass Ban by OscarXcore.`)
-        .then((data) => {
-          console.log(`${data[0]}: ${data[1]} is now banned. Reason: ${data[2]}`);
-        }).catch((error) => {
-          console.log(error);
-        })*/
-        client.say(channel, `/ban ${banQueue[0].toString()} "PM ${process.env.TWITCH_USERNAME} about why this user was banned. Automated with Twitch Mass Ban by Stapleton on Github."`)
-        console.log(`#${channel}: User #${banQueue.length} | ${banQueue[0].toString()} has been banned from the channel.`);
+      let reason = globals.reason.toString();
+      do {      
+        client.say(channel, `/ban ${banQueue[0].toString()} ${reason}`)
+        console.log(`#${channel}: User #${banTotal - banQueue.length + 1} | ${banQueue[0].toString()} has been banned from the channel.`);
         banQueue.shift();
       } while (banQueue.length != 0);
     }
 	if (banQueue.length == 0) {
-		console.log('\nFinished. Press CTRL+C to exit.');
+		console.log(`\nFinished. ${banTotal} users were banned with reason: ${globals.reason}\nPress CTRL+C to exit.`);
 	}
   });
 }
