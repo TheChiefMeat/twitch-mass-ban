@@ -31,7 +31,7 @@ function doIt() {
   _fs.readFile(globals.file, 'utf8', (error, fileData) => {
     if (error) throw error;
 
-    let banList = fileData.replace(/\r\n/g, ' ').split(' ');
+    let banList = fileData.split('\n');
     let banQueue = banList;
 
     if (banQueue.length != 0) {
