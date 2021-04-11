@@ -37,4 +37,5 @@ Before using this app in someones twitch chat, please make sure that they are aw
 # Usage
 *Each username must be on its own line in the text file*  
 *Remove any quotes when replacing values in the below command*  
-`node index.js "ChannelName" "TextFileWithUsernames.txt" "Reason to specify for all bans"`
+*The number at the end is the amount of time you wish to delay between each ban*
+`node index.js "ChannelName" "TextFileWithUsernames.txt" "Reason to specify for all bans" "1000"`
