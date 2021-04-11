@@ -6,7 +6,7 @@ const globals = {
   script: process.argv[1],
   channel: process.argv[2],
   file: process.argv[3],
-  reason: process.argv.slice(4).join(" "),
+  reason: process.argv[4],
   delay: process.argv[5].toString()
 };
 
